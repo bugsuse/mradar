@@ -66,6 +66,7 @@ colormap(collev);
 %% ppi to rhi
 azimu = 314;
 [prod, height, lon, lat] = ppi_to_rhi(radar, azimu);
+pcolor(lon, height, prod)
 ylim([0, 20])
 %axis square        %  保持绘图框为正方形
 shading flat       %  去除图形网格线
