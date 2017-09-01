@@ -1,18 +1,19 @@
 function [prod, height, lon, lat] = ppi_to_rhi(radar, azimu)
-%% Ñ°ÕÒÓë¸ø¶¨·½Î»½Ç×î½üµÄ·½Î»½ÇÊý¾Ý£¬ÌáÈ¡³öËùÓÐÑö½ÇÊý¾Ý
-%   Ö»Ñ°ÕÒÓë¸ø¶¨·½Î»½Ç×î½üµÄ·½Î»½ÇÊý¾Ý£¬²»½øÐÐ²åÖµ
+%% å¯»æ‰¾ä¸Žç»™å®šæ–¹ä½è§’æœ€è¿‘çš„æ–¹ä½è§’æ•°æ®ï¼Œæå–å‡ºæ‰€æœ‰ä»°è§’æ•°æ®
+%   åªå¯»æ‰¾ä¸Žç»™å®šæ–¹ä½è§’æœ€è¿‘çš„æ–¹ä½è§’æ•°æ®ï¼Œä¸è¿›è¡Œæ’å€¼
 %
-%   ÊäÈë²ÎÊý£º
-%       radar  £º  °üÀ¨µÄÀ×´ï²úÆ·Êý¾ÝÒÔ¼°ÆäËüÐÅÏ¢.  ½á¹¹Ìå
-%       azimu  £º  ·½Î»½Ç.  ¸¡µãÊý±êÁ¿
-%   Êä³ö²ÎÊý£º
-%       prod   £º ÌáÈ¡µ½µÄ²úÆ·Êý¾Ý
-%       height £º ÌáÈ¡µ½µÄ²úÆ·Êý¾Ý¶ÔÓ¦µÄ¸ß¶ÈÐÅÏ¢
-%       lon    £º ·½Î»½Ç¶ÔÓ¦µÄ¾­¶ÈÐÅÏ¢
-%       lat    £º ·½Î»½Ç¶ÔÓ¦µÄÎ³¶ÈÐÅÏ¢
-%  ×¢Òâ£º
-%     »æÍ¼Ê±Ê¹ÓÃ lon(»òlat)£¬height£¬prod£¬ÒÔÉÏÊä³ö±äÁ¿¾ùÒÑÍø¸ñ»¯
+%   è¾“å…¥å‚æ•°ï¼š
+%       radar  ï¼š  åŒ…æ‹¬çš„é›·è¾¾äº§å“æ•°æ®ä»¥åŠå…¶å®ƒä¿¡æ¯.  ç»“æž„ä½“
+%       azimu  ï¼š  æ–¹ä½è§’.  æµ®ç‚¹æ•°æ ‡é‡
+%   è¾“å‡ºå‚æ•°ï¼š
+%       prod   ï¼š æå–åˆ°çš„äº§å“æ•°æ®
+%       height ï¼š æå–åˆ°çš„äº§å“æ•°æ®å¯¹åº”çš„é«˜åº¦ä¿¡æ¯
+%       lon    ï¼š æ–¹ä½è§’å¯¹åº”çš„ç»åº¦ä¿¡æ¯
+%       lat    ï¼š æ–¹ä½è§’å¯¹åº”çš„çº¬åº¦ä¿¡æ¯
+%  æ³¨æ„ï¼š
+%     ç»˜å›¾æ—¶ä½¿ç”¨ lon(æˆ–lat)ï¼Œheightï¼Œprodï¼Œä»¥ä¸Šè¾“å‡ºå˜é‡å‡å·²ç½‘æ ¼åŒ–
 %%
+
 phinum = radar.info.elenum;
 
 for i = 1:phinum
