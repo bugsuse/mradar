@@ -29,11 +29,11 @@
 ## 效果
 
                                             基本反射率图
-![基本反射率](images\sband_base.jpg)
+![](images/sband_base.jpg)
 
 
                                             任意剖面图
-![任意剖面](images\sband_cross_section_ppi.jpg)            
+![](images/sband_cross_section_ppi.jpg)            
                                             
                                             RHI
-![RHI](images\sband_rhi.jpg)                                            
+![](images/sband_rhi.jpg)                                            
