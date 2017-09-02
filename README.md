@@ -28,12 +28,19 @@
 
 ## 效果
 
-                                            基本反射率图
-![](images/sband_base.jpg)
 
+<center> 基本反射率 </center>
+<div align=center>
+      <img src="images/sband_base.jpg">
+</div>
 
-                                            任意剖面图
-![](images/sband_cross_section_ppi.jpg)            
-                                            
-                                            RHI
-![](images/sband_rhi.jpg)                                            
+<center> 任意剖面图 </center>
+<div align=center>
+      <img src="images/sband_cross_section_ppi.jpg">
+</div>
+
+<center> 固定方位角RHI </center>
+<div align=center>
+      <img src="images/sband_rhi.jpg">
+</div>
+                                   
