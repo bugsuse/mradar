@@ -17,7 +17,7 @@
 
 ## 使用方法
 
-下载源码之后将源码放到 mradar 文件夹中，然后在 mradar 路径下执行 setup_mradar 函数即可将添加路径
+下载源码之后将源码放到 mradar 文件夹中，然后在 mradar 路径下执行 setup_mradar 函数即可添加路径
 
 `>> setup_mradar`
 
@@ -26,7 +26,7 @@
 `>> sband_demo`
 
 
-## 效果
+## 效果图
 
 
 <center> 基本反射率 </center>
