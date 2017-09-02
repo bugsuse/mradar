@@ -26,7 +26,7 @@
 `>> sband_demo`
 
 
-## 效果
+## 效果图
 
 
 <center> 基本反射率 </center>
