@@ -7,7 +7,7 @@ collev = [ 255,255,255; 0,236,236; 0,160,246; 0,0,246; 0,255,0; ...
            0,200,0; 0,144,0; 255,255,0; 231,192,0; 255,0,0; ...
            214,0,0; 192,0,0; 255,0,255; 153,85,201 ]/255.;
 
-filename = 'NUIST.20140928.070704.AR2';
+filename = 'data/NUIST.20140928.070704.AR2';
        
 data = read_cradar(filename, 1);     
 
@@ -21,8 +21,8 @@ prod(prod < 0) = 0;
 
 figure
 pcolor(lon, lat, prod)
-axis square        %  ±£³Ö»æÍ¼¿òÎªÕý·½ÐÎ
-shading flat       %  È¥³ýÍ¼ÐÎÍø¸ñÏß
+axis square        %  ä¿æŒç»˜å›¾æ¡†ä¸ºæ­£æ–¹å½¢
+shading flat       %  åŽ»é™¤å›¾å½¢ç½‘æ ¼çº¿
 cid = colorbar;
 caxis([0, 70])
 colormap(collev)
@@ -36,8 +36,8 @@ interp = 'se';
 
 method = 'nearest';
 
-step = 0.01; % ¿ØÖÆ¾­¶ÈÊý¾Ý²åÖµ
-itpstep = 0.01; % ¿ØÖÆ¸ß¶È²åÖµ¼ä¸ô
+step = 0.01; % æŽ§åˆ¶ç»åº¦æ•°æ®æ’å€¼
+itpstep = 0.01; % æŽ§åˆ¶é«˜åº¦æ’å€¼é—´éš”
 
 [itpprod, itpheight, itplon, itplat] = cross_section_ppi(radar, interp, 'stapos', stapos, 'endpos', endpos, 'hor', step, 'ver', itpstep, 'method', 'nearest');
 
@@ -46,8 +46,8 @@ figure
 pcolor(itplon, itpheight, itpprod)
 ylabel('Height (km)')
 ylim([0, 20])
-%axis square        %  ±£³Ö»æÍ¼¿òÎªÕý·½ÐÎ
-shading flat       %  È¥³ýÍ¼ÐÎÍø¸ñÏß
+%axis square        %  ä¿æŒç»˜å›¾æ¡†ä¸ºæ­£æ–¹å½¢
+shading flat       %  åŽ»é™¤å›¾å½¢ç½‘æ ¼çº¿
 cid = colorbar;
 caxis([0, 70])
 colormap(collev);
