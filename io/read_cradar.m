@@ -65,7 +65,7 @@ while(1)
        BaseData.Radial(ii).Moment(jj).Data= fread(fid,double(BaseData.Radial(ii).Moment(jj).Header.Length),'*uchar');
     end
 
-    if ( (BaseData.Radial(ii).Header.RadialState==4)    )   %此时说明体扫结束了！
+    if ( (BaseData.Radial(ii).Header.RadialState==4) )   %此时说明体扫结束了！
         break;
     end
 end
@@ -101,21 +101,21 @@ Data.info.longitude = BaseData.Common.Site.Latitude;
 Data.info.latitude = BaseData.Common.Site.Longitude;
 Data.info.height = BaseData.Common.Site.Height;
 
-radar = convert2radar(Data);
+radar = convert2radar(Data, Moment_Number);
 end
 
-function radar = convert2radar(data)
+function radar = convert2radar(data, Moment_Number)
 %% 转换数据格式
 cutnum = length(data.Cut);
 for i = 1:cutnum
-    r = 1:size(data.Cut(i).Moment.Data, 1); 
+    r = 1:size(data.Cut(i).Moment(Moment_Number).Data, 1); 
     azimu = data.Cut(i).Azimuth;
     eleva = data.Cut(i).Elevation;
     
     [rr, azimuth] = ndgrid(r, azimu);
     [~, elevation] = ndgrid(r, eleva);
     
-    prod = data.Cut(i).Moment.Data;
+    prod = data.Cut(i).Moment(Moment_Number).Data;
     
     radar.products.elevation(i).data = prod;
     radar.products.elevation(i).elevation = data.Cut(i).Elevation(1);
