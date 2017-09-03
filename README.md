@@ -45,10 +45,32 @@
 <div align=center>
       <img src="images/sband_rhi.jpg">
 </div>
-                                   
+ 
+ <center> 径向速度PPI </center>
+<div align=center>
+	<img src="images/sband_radial_velocity.jpg">
+</div> 
+ 
+<center> 径向速度任意剖面 </center>
+<div align=center>
+	<img src="images/sband_radial_velocity_cross_section.jpg">
+</div> 
+
+
 
 * **C波段双偏振雷达**
-<center> 径向速度 </center>
+
+<center> 基本反射率 </center>
+<div align=center>
+	<img src="images/cband_ppi.jpg">
+</div> 
+
+<center> 基本反射率剖面图 </center>
+<div align=center>
+	<img src="images/cband_cross_section_ppi.jpg">
+</div> 
+
+<center> 径向速度PPI </center>
 <div align=center>
 	<img src="images/cband_radial_velocity.jpg">
 </div> 
