@@ -17,7 +17,7 @@
 
 ## 使用方法
 
-下载源码之后将源码放到 mradar 文件夹中，然后在 mradar 路径下执行 setup_mradar 函数即可添加路径
+下载源码之后将源码放到 mradar 文件夹中，然后在 mradar 路径下执行 setup_mradar 函数即可将添加路径
 
 `>> setup_mradar`
 
@@ -28,6 +28,8 @@
 
 ## 效果图
 
+
+*  **S 波段雷达**
 
 <center> 基本反射率 </center>
 <div align=center>
@@ -44,3 +46,10 @@
       <img src="images/sband_rhi.jpg">
 </div>
                                    
+
+* **C 波段双偏振雷达**
+
+<center> 径向速度 </center>
+<div align=center>
+	<img src="images/cband_radial_velocity.jpg">
+</div> 
