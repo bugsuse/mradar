@@ -1,31 +1,23 @@
-
 clear,clc
 
 dbstop if error
 tic
-collev = [ 255,255,255; 0,236,236; 0,160,246; 0,0,246; 0,255,0; ...
-           0,200,0; 0,144,0; 255,255,0; 231,192,0; 255,0,0; ...
-           214,0,0; 192,0,0; 255,0,255; 153,85,201 ]/255.;
 
 filename = 'data/NUIST.20140928.070704.AR2';
        
-data = read_cradar(filename, 1);     
+% ∂¡»°æ∂œÚÀŸ∂»
+radar = read_cradar(filename, 3);     
 
-%radar = convert2radar(data);
 toc       
 lat = radar.coordinate.elevation(1).latitude.data;
 lon = radar.coordinate.elevation(1).longitude.data;
 height1 = radar.coordinate.elevation(1).height.data;
 prod = radar.products.elevation(1).data;
-prod(prod < 0) = 0;
 
-figure
 pcolor(lon, lat, prod)
-axis square        %  ‰øùÊåÅÁªòÂõæÊ°Ü‰∏∫Ê≠£ÊñπÂΩ¢
-shading flat       %  ÂéªÈô§ÂõæÂΩ¢ÁΩëÊ†ºÁ∫ø
+axis square        %  ±£≥÷ªÊÕºøÚŒ™’˝∑Ω–Œ
+shading flat       %  »•≥˝Õº–ŒÕ¯∏Òœﬂ
 cid = colorbar;
-caxis([0, 70])
-colormap(collev)
 
 se = ginput(2);
 
@@ -36,8 +28,8 @@ interp = 'se';
 
 method = 'nearest';
 
-step = 0.01; % ÊéßÂà∂ÁªèÂ∫¶Êï∞ÊçÆÊèíÂÄº
-itpstep = 0.01; % ÊéßÂà∂È´òÂ∫¶ÊèíÂÄºÈó¥Èöî
+step = 0.01; % øÿ÷∆æ≠∂» ˝æ›≤Â÷µ
+itpstep = 0.01; % øÿ÷∆∏ﬂ∂»≤Â÷µº‰∏Ù
 
 [itpprod, itpheight, itplon, itplat] = cross_section_ppi(radar, interp, 'stapos', stapos, 'endpos', endpos, 'hor', step, 'ver', itpstep, 'method', 'nearest');
 
@@ -46,8 +38,6 @@ figure
 pcolor(itplon, itpheight, itpprod)
 ylabel('Height (km)')
 ylim([0, 20])
-%axis square        %  ‰øùÊåÅÁªòÂõæÊ°Ü‰∏∫Ê≠£ÊñπÂΩ¢
-shading flat       %  ÂéªÈô§ÂõæÂΩ¢ÁΩëÊ†ºÁ∫ø
+axis square        %  ±£≥÷ªÊÕºøÚŒ™’˝∑Ω–Œ
+shading flat       %  »•≥˝Õº–ŒÕ¯∏Òœﬂ
 cid = colorbar;
-caxis([0, 70])
-colormap(collev);

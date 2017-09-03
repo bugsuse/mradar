@@ -24,3 +24,31 @@
 如果所有测试数据均在 data 子文件夹内，可在 mradar 路径下直接运行测试程序
 
 `>> sband_demo`
+
+
+## 效果图
+
+
+*  **S 波段雷达**
+
+<center> 基本反射率 </center>
+<div align=center>
+      <img src="images/sband_base.jpg">
+</div>
+
+<center> 任意剖面图 </center>
+<div align=center>
+      <img src="images/sband_cross_section_ppi.jpg">
+</div>
+
+<center> 固定方位角RHI </center>
+<div align=center>
+      <img src="images/sband_rhi.jpg">
+</div>
+                                   
+
+* **C波段双偏振**
+<center> 径向速度 </center>
+<div align=center>
+	<img src="images/cband_radial_velocity.jpg">
+</div> 
