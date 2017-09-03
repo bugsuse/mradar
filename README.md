@@ -74,3 +74,31 @@
 <div align=center>
 	<img src="images/cband_radial_velocity.jpg">
 </div> 
+
+
+## 功能扩展
+
+如果要使用 utils 的工具函数，在处理其它雷达数据格式时，数据输出要和工具函数的输入相符合，数据输出为以下格式（在matlab中为结构体）：
+
+                                                    | data
+                                     | elevation(1) | eleva
+              | products | elevation |   ...           ...
+              |                      | elevation(n) | data
+              |                                     | eleva
+              |                                                  | data
+              |                                       | longitude| units
+        radar |                        |              | latitude | 同上
+              |                        | elevation(1) | height   | 
+              |                        |              | azimuth
+              |                        |              | elevation
+              | coordinate | elevation | ....
+              |                        |
+              |                        |              | longitude
+              |                        |              | latitude
+              |                        | elevation(n) | height
+              |                  | data               | azimuth
+              |      | longitude | units              | elevation
+              | info | latitude  | 同上
+                     | height    | 同上
+                     | elenum  
+
