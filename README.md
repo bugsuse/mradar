@@ -47,8 +47,7 @@
 </div>
                                    
 
-* **C 波段双偏振雷达**
-
+* **C波段双偏振**
 <center> 径向速度 </center>
 <div align=center>
 	<img src="images/cband_radial_velocity.jpg">
