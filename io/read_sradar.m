@@ -1,22 +1,22 @@
 function radar = read_sradar(filename, types, longitude, latitude, height)
-%%   è¯»å–SA/SBæ ¼å¼é›·è¾¾æ•°æ®
+%%   ¶ÁÈ¡SA/SB¸ñÊ½À×´ïÊı¾İ
 %  
-%       è¾“å…¥å‚æ•°
+%       ÊäÈë²ÎÊı
 %       -----------------
-%        filename   :  SA/SB é›·è¾¾æ–‡ä»¶.   å­—ç¬¦ä¸²å˜é‡  
-%          types    :  é›·è¾¾äº§å“.    æ•´å‹å˜é‡
+%        filename   :  SA/SB À×´ïÎÄ¼ş.   ×Ö·û´®±äÁ¿  
+%          types    :  À×´ï²úÆ·.    ÕûĞÍ±äÁ¿
 %                      1   :  reflectivity
 %                      2   :  radial velocity
 %                      3   :  spectral width
-%         longitude :  é›·è¾¾ç«™ç‚¹ç»åº¦
-%         latitude  :  é›·è¾¾ç«™ç‚¹çº¬åº¦
-%          height   :  é›·è¾¾ç«™ç‚¹é«˜åº¦ï¼Œå•ä½ï¼šm
+%         longitude :  À×´ïÕ¾µã¾­¶È
+%         latitude  :  À×´ïÕ¾µãÎ³¶È
+%          height   :  À×´ïÕ¾µã¸ß¶È£¬µ¥Î»£ºm
 %
-%      è¾“å‡ºå‚æ•°
+%      Êä³ö²ÎÊı
 %     -------------------
-%        radar  : åŒ…æ‹¬é›·è¾¾äº§å“æ•°æ®ï¼Œç»çº¬åº¦åæ ‡ï¼Œé«˜åº¦ï¼Œæ–¹ä½è§’ï¼Œä»°è§’ç­‰ä¿¡æ¯
+%        radar  : °üÀ¨À×´ï²úÆ·Êı¾İ£¬¾­Î³¶È×ø±ê£¬¸ß¶È£¬·½Î»½Ç£¬Ñö½ÇµÈĞÅÏ¢
 %          .type. :  struct
-%% radar æ•°æ®ç»“æ„
+%% radar Êı¾İ½á¹¹
 %                                                     | data
 %                                      | elevation(1) | eleva
 %               | products | elevation |   ...           ...
@@ -24,7 +24,7 @@ function radar = read_sradar(filename, types, longitude, latitude, height)
 %               |                                     | eleva
 %               |                                                  | data
 %               |                                       | longitude| units
-%         radar |                        |              | latitude | åŒä¸Š
+%         radar |                        |              | latitude | Í¬ÉÏ
 %               |                        | elevation(1) | height   | 
 %               |                        |              | azimuth
 %               |                        |              | elevation
@@ -35,12 +35,12 @@ function radar = read_sradar(filename, types, longitude, latitude, height)
 %               |                        | elevation(n) | height
 %               |                  | data               | azimuth
 %               |      | longitude | units              | elevation
-%               | info | latitude  | åŒä¸Š
-%                      | height    | åŒä¸Š
+%               | info | latitude  | Í¬ÉÏ
+%                      | height    | Í¬ÉÏ
 %                      | elenum  
-%% ç¤ºä¾‹
-%  æ³¨æ„ï¼šå½“ä¸çŸ¥é“ç»çº¬åº¦å’Œé«˜åº¦æ—¶ï¼Œå¯è®¾ç½®ä¸º0ï¼Œä½†åœ¨ä½¿ç”¨ cross_section_ppi æ—¶ é›·è¾¾ç«™ç‚¹
-%  çš„ç»çº¬åº¦æ˜¯å¿…é¡»çš„
+%% Ê¾Àı
+%  ×¢Òâ£ºµ±²»ÖªµÀ¾­Î³¶ÈºÍ¸ß¶ÈÊ±£¬¿ÉÉèÖÃÎª0£¬µ«ÔÚÊ¹ÓÃ cross_section_ppi Ê± À×´ïÕ¾µã
+%  µÄ¾­Î³¶ÈÊÇ±ØĞëµÄ
 %  
 %   types = 1;
 %   radar = read_sradar(filename, types, lon, lat, 0);
@@ -93,10 +93,8 @@ for i = 1:phinum
         error('The number of radial is wrong!')
     else
         eleidse = eleidx(1):eleidx(end);
-    end
-    
+    end   
     radar = get_prod(radar, data, i, types, eleidse, eleva, longitude, latitude);   
-
 end
 radar.info.longitude.data = longitude;
 radar.info.longitude.units = 'degree';
@@ -137,7 +135,7 @@ if types == 1
     [prod, lat, lon, height, llunits, azimuths, elevations] = get_data(data, eleidse, ray_nums, distance, start, longitude, latitude);
     prod = (prod - 2)/2 - 32;
 elseif types == 2
-    start = 589;    % start byte 
+    start = 129;    % start byte 
     ray_nums = 920; % max length
     distance = unique(data(:, 53) + data(:, 54)*256)/1000;
     ray_nums_all = unique(data(eleidse, 57) + data(eleidse, 58)*256);
@@ -152,7 +150,7 @@ elseif types == 2
         error('Error! velocity mode is reading %d, but should reading 2 or 4.', res);
     end
 elseif types == 3
-    start = 1509;
+    start = 1049;
     ray_nums = 920;
     distance = unique(data(:, 53) + data(:, 54)*256)/1000;
     ray_nums_all = unique(data(eleidse, 57) + data(eleidse, 58)*256);

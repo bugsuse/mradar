@@ -1,9 +1,9 @@
 function radar = read_cradar(filename, Moment_Number)
-%%  å¤„ç†å—ä¿¡å¤§ C æ³¢æ®µåŒåæŒ¯å¤šæ™®å‹’é›·è¾¾æ•°æ®ï¼Œé»˜è®¤è¾“å‡ºæ‰€æœ‰ä»°è§’çš„æŸä¸€äº§å“è¾“å‡º 
-% è¾“å…¥å‚æ•°ï¼š
-%     filename  ï¼š æ–‡ä»¶å.  å­—ç¬¦ä¸²
-%     Moment_Number ï¼š è¦è¯»å–çš„äº§å“.  æ•´æ•°.
-%            å¯èƒ½çš„å–å€¼ï¼Œå…·ä½“å¯æŸ¥é˜…æ‰‹å†Œ
+%%  ´¦ÀíÄÏĞÅ´ó C ²¨¶ÎË«Æ«Õñ¶àÆÕÀÕÀ×´ïÊı¾İ£¬Ä¬ÈÏÊä³öËùÓĞÑö½ÇµÄÄ³Ò»²úÆ·Êä³ö 
+% ÊäÈë²ÎÊı£º
+%     filename  £º ÎÄ¼şÃû.  ×Ö·û´®
+%     Moment_Number £º Òª¶ÁÈ¡µÄ²úÆ·.  ÕûÊı.
+%            ¿ÉÄÜµÄÈ¡Öµ£¬¾ßÌå¿É²éÔÄÊÖ²á
 %             1   :  dBT   Total Reflectivity, without clutter removed
 %             2   :  dBZ   Reflectivity after clutter removed
 %             3   :   V    Mean Radial Velocity
@@ -11,28 +11,28 @@ function radar = read_cradar(filename, Moment_Number)
 %             5   :  SQI   Signal Quality Index
 %             7   :  ZDR   Differential Reflectivity
 %             9   :   CC   Cross Correlation Coefficient
-%             10  : Î¦DP   Differential Phase
+%             10  : ¦µDP   Differential Phase
 %             11  :  KDP   Specific Differential Phase
 %             16  :  Zc    reflectivity corrected
-%     è¾“å‡ºå‚æ•°ï¼š
-%       radar  ï¼š  åŒ…å«æŒ‡å®šäº§å“çš„æ‰€æœ‰ä»°è§’æ•°æ®ä»¥åŠä¸€äº›å…¶å®ƒä¿¡æ¯. ç»“æ„ä½“
+%     Êä³ö²ÎÊı£º
+%       radar  £º  °üº¬Ö¸¶¨²úÆ·µÄËùÓĞÑö½ÇÊı¾İÒÔ¼°Ò»Ğ©ÆäËüĞÅÏ¢. ½á¹¹Ìå
 %      
 %%
 fid = fopen(filename, 'rb');
 fseek(fid,32,'bof');
 
-%1.2.è¯»å–128ä¸ªå­—èŠ‚çš„SITE CONFIG
+%1.2.¶ÁÈ¡128¸ö×Ö½ÚµÄSITE CONFIG
 BaseData.Common.Site.Code =  fread(fid,8,'uint8=>char')';    %Site Code  in characters
 BaseData.Common.Site.Name =  fread(fid,32,'uint8=>char')';    %Site Name or  description  in characters
-BaseData.Common.Site.Latitude =  double(fread(fid,1,'*float32'));   % Latitude of Radar Site é›·è¾¾ç«™ç‚¹æ‰€åœ¨çº¬åº¦
-BaseData.Common.Site.Longitude =  double(fread(fid,1,'*float32'));   % Longitude of Radar Site ç»åº¦
-BaseData.Common.Site.Height =  double(fread(fid,1,'*int32'));   % Height of  antenna in meters  å¤©çº¿é«˜åº¦ï¼ˆmï¼‰
-BaseData.Common.Site.Ground =  fread(fid,1,'*int32');   % Height  of  ground  in meters  æµ·æ‹”é«˜åº¦
-BaseData.Common.Site.Frequency =  fread(fid,1,'*float32');   % Radar operation frequency in MHz é›·è¾¾æ“ä½œé¢‘ç‡ï¼ˆMHzï¼‰
-BaseData.Common.Site.BeamWidthHori  =  fread(fid,1,'*float32');   % Antenna  Beam  Width Hori å¤©çº¿æ³¢æŸæ°´å¹³å®½åº¦
-BaseData.Common.Site.BeamWidthVert =  fread(fid,1,'*float32');   % Antenna  Beam  Width Vert  å¤©çº¿æ³¢æŸå‚ç›´å®½åº¦
-BaseData.Common.Site.Reserved =  fread(fid,60,'*uchar');    %Reserved ä¿ç•™
-%è·³è¿‡ç¬¬176ä¸ªå­—èŠ‚ï¼Œå¼€å§‹
+BaseData.Common.Site.Latitude =  double(fread(fid,1,'*float32'));   % Latitude of Radar Site À×´ïÕ¾µãËùÔÚÎ³¶È
+BaseData.Common.Site.Longitude =  double(fread(fid,1,'*float32'));   % Longitude of Radar Site ¾­¶È
+BaseData.Common.Site.Height =  double(fread(fid,1,'*int32'));   % Height of  antenna in meters  ÌìÏß¸ß¶È£¨m£©
+BaseData.Common.Site.Ground =  fread(fid,1,'*int32');   % Height  of  ground  in meters  º£°Î¸ß¶È
+BaseData.Common.Site.Frequency =  fread(fid,1,'*float32');   % Radar operation frequency in MHz À×´ï²Ù×÷ÆµÂÊ£¨MHz£©
+BaseData.Common.Site.BeamWidthHori  =  fread(fid,1,'*float32');   % Antenna  Beam  Width Hori ÌìÏß²¨ÊøË®Æ½¿í¶È
+BaseData.Common.Site.BeamWidthVert =  fread(fid,1,'*float32');   % Antenna  Beam  Width Vert  ÌìÏß²¨Êø´¹Ö±¿í¶È
+BaseData.Common.Site.Reserved =  fread(fid,60,'*uchar');    %Reserved ±£Áô
+%Ìø¹ıµÚ176¸ö×Ö½Ú£¬¿ªÊ¼
 fseek(fid,176,'cof');
 BaseData.Common.Task.CutNumber =  fread(fid,1,'*int32');    %  Number of Elevation or Azimuth cuts in the task
 fseek(fid,76,'cof');
@@ -75,7 +75,7 @@ while(1)
        BaseData.Radial(ii).Moment(jj).Data= fread(fid,double(BaseData.Radial(ii).Moment(jj).Header.Length),'*uchar');
     end
 
-    if ( (BaseData.Radial(ii).Header.RadialState==4) )   %æ­¤æ—¶è¯´æ˜ä½“æ‰«ç»“æŸäº†ï¼
+    if ( (BaseData.Radial(ii).Header.RadialState==4) )   %´ËÊ±ËµÃ÷ÌåÉ¨½áÊøÁË£¡
         break;
     end
 end
@@ -115,7 +115,7 @@ radar = convert2radar(Data, Moment_Number);
 end
 
 function radar = convert2radar(data, Moment_Number)
-%% è½¬æ¢æ•°æ®æ ¼å¼
+%% ×ª»»Êı¾İ¸ñÊ½
 cutnum = length(data.Cut);
 for i = 1:cutnum
     r = 1:size(data.Cut(i).Moment(Moment_Number).Data, 1); 
