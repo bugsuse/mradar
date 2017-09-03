@@ -94,8 +94,8 @@ for ii=1:BaseData.Common.Task.CutNumber
     BinLength = BaseData.Radial(cut_end_index(ii)).Moment(Moment_Number).Header.BinLength;
 
     for jj=1:Cut_Radial_Number(ii)
-        Data.Cut(ii).Azimuth(jj)=BaseData.Radial(jj+cut_end_index_final(ii)).Header.Azimuth;
-        Data.Cut(ii).Elevation(jj)=BaseData.Radial(jj+cut_end_index_final(ii)).Header.Elevation;
+        Data.Cut(ii).Azimuth(jj) = BaseData.Radial(jj+cut_end_index_final(ii)).Header.Azimuth;
+        Data.Cut(ii).Elevation(jj) = BaseData.Radial(jj+cut_end_index_final(ii)).Header.Elevation;
 
         if BinLength==2
             date_temp=single(BaseData.Radial(jj+cut_end_index_final(ii)).Moment(Moment_Number).Data(2:2:end)) *256 + single(BaseData.Radial(jj+cut_end_index_final(ii)).Moment(Moment_Number).Data(1:2:end));
@@ -107,8 +107,8 @@ for ii=1:BaseData.Common.Task.CutNumber
     end         
 end
 
-Data.info.longitude = BaseData.Common.Site.Latitude;
-Data.info.latitude = BaseData.Common.Site.Longitude;
+Data.info.longitude = BaseData.Common.Site.Longitude;
+Data.info.latitude = BaseData.Common.Site.Latitude;
 Data.info.height = BaseData.Common.Site.Height;
 
 radar = convert2radar(Data, Moment_Number);
@@ -134,12 +134,12 @@ for i = 1:cutnum
     
     lat = double(km2deg(lat)) + data.info.latitude;
     lon = double(km2deg(lon)) + data.info.longitude;
-    height = double(z) + data.info.height;    
+    height = double(z) + data.info.height/1000;    
     
     radar.coordinate.elevation(i).longitude.data = lon;
     radar.coordinate.elevation(i).longitude.units = 'degree';    
     radar.coordinate.elevation(i).latitude.data = lat;
-    radar.coordinate.elevation(i).longitude.units = 'degree';
+    radar.coordinate.elevation(i).latitude.units = 'degree';
     radar.coordinate.elevation(i).height.data = height;
     radar.coordinate.elevation(i).height.units = 'km';  
     radar.coordinate.elevation(i).azimuth.data = azimuth;
