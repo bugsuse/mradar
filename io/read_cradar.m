@@ -1,9 +1,19 @@
 function radar = read_cradar(filename, Moment_Number)
-%%  处理南信大 C 波段双偏振多普勒雷达数据 
+%%  处理南信大 C 波段双偏振多普勒雷达数据，默认输出所有仰角的某一产品输出 
 % 输入参数：
 %     filename  ： 文件名.  字符串
 %     Moment_Number ： 要读取的产品.  整数.
-%                 可取值查阅手册
+%            可能的取值，具体可查阅手册
+%             1   :  dBT   Total Reflectivity, without clutter removed
+%             2   :  dBZ   Reflectivity after clutter removed
+%             3   :   V    Mean Radial Velocity
+%             4   :   W    Spectrum Width
+%             5   :  SQI   Signal Quality Index
+%             7   :  ZDR   Differential Reflectivity
+%             9   :   CC   Cross Correlation Coefficient
+%             10  : ΦDP   Differential Phase
+%             11  :  KDP   Specific Differential Phase
+%             16  :  Zc    reflectivity corrected
 %     输出参数：
 %       radar  ：  包含指定产品的所有仰角数据以及一些其它信息. 结构体
 %      
