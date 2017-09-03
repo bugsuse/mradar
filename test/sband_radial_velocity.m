@@ -17,10 +17,8 @@ height1 = radar.coordinate.elevation(1).height.data;
 prod = radar.products.elevation(1).data;
 phinum = radar.info.elenum;
 
-dbz = zeros(size(prod, 1), size(prod, 2), phinum);
-z = dbz;
-dbz(:, :, 1) = prod;
-z(:, :, 1) = height1;
+% -64.5 表示无数据，-64表示距离模糊，此处统一置为NaN
+prod(prod <= -64) = NaN;
 
 figure
 pcolor(lon, lat, prod)
@@ -42,8 +40,8 @@ interp = 'se';
 method = 'nearest';
 
 types = 1;
-step = 0.01; % 控制经度数据插值
-itpstep = 0.01; % 控制高度插值间隔
+step = 0.001; % 控制经度数据插值
+itpstep = 0.001; % 控制高度插值间隔
 
 [itpprod, itpheight, itplon, itplat] = cross_section_ppi(radar, interp, 'stapos', stapos, 'endpos', endpos, 'hor', step, 'ver', itpstep, 'method', 'nearest');
 

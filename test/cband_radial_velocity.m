@@ -3,7 +3,7 @@ clear,clc
 dbstop if error
 tic
 
-filename = 'data/NUIST.20140928.070704.AR2';
+filename = 'E:\MATLAB\radar\NUIST.20140928.070704.AR2';
        
 % 读取径向速度
 radar = read_cradar(filename, 3);     

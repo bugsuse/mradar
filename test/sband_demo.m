@@ -8,9 +8,9 @@ collev = [ 255,255,255; 0,236,236; 0,160,246; 0,0,246; 0,255,0; ...
        
 filename = 'data/SA_CAP.bin';
 
-types = 1; % å½“ eleva = 0.5ï¼Œä¸” dupe = false æ—¶ï¼Œåªæœ‰åå°„ç‡æ•°æ®
+types = 1; % µ± eleva = 0.5£¬ÇÒ dupe = false Ê±£¬Ö»ÓĞ·´ÉäÂÊÊı¾İ
 lon = 120.2011;
-lat = 33.4311; % é›·è¾¾ç»çº¬åº¦åæ ‡
+lat = 33.4311; % À×´ï¾­Î³¶È×ø±ê
 
 radar = read_sradar(filename, types, lon, lat, 0);
 
@@ -18,18 +18,15 @@ lat = radar.coordinate.elevation(1).latitude.data;
 lon = radar.coordinate.elevation(1).longitude.data;
 height1 = radar.coordinate.elevation(1).height.data;
 prod = radar.products.elevation(1).data;
-prod(prod < 0) = 0;
 phinum = radar.info.elenum;
 
-dbz = zeros(size(prod, 1), size(prod, 2), phinum);
-z = dbz;
-dbz(:, :, 1) = prod;
-z(:, :, 1) = height1;
+% -33 ±íÊ¾ÎŞ»Ø²¨£¬-32.5±íÊ¾¾àÀëÄ£ºı
+prod(prod <= -32.5) = NaN;
 
 figure
 pcolor(lon, lat, prod)
-axis square        %  ä¿æŒç»˜å›¾æ¡†ä¸ºæ­£æ–¹å½¢
-shading flat       %  å»é™¤å›¾å½¢ç½‘æ ¼çº¿
+axis square        %  ±£³Ö»æÍ¼¿òÎªÕı·½ĞÎ
+shading flat       %  È¥³ıÍ¼ĞÎÍø¸ñÏß
 cid = colorbar;
 caxis([0, 70])
 %   set grid line style for colorbar to solid line
@@ -48,8 +45,8 @@ interp = 'se';
 method = 'nearest';
 
 types = 1;
-step = 0.001; % æ§åˆ¶ç»åº¦æ•°æ®æ’å€¼
-itpstep = 0.001; % æ§åˆ¶é«˜åº¦æ’å€¼é—´éš”
+step = 0.001; % ¿ØÖÆ¾­¶ÈÊı¾İ²åÖµ
+itpstep = 0.001; % ¿ØÖÆ¸ß¶È²åÖµ¼ä¸ô
 
 [itpprod, itpheight, itplon, itplat] = cross_section_ppi(radar, interp, 'stapos', stapos, 'endpos', endpos, 'hor', step, 'ver', itpstep, 'method', 'nearest');
 
@@ -57,8 +54,8 @@ figure
 pcolor(itplon, itpheight, itpprod)
 ylabel('Height (km)')
 ylim([0, 20])
-axis square        %  ä¿æŒç»˜å›¾æ¡†ä¸ºæ­£æ–¹å½¢
-shading flat       %  å»é™¤å›¾å½¢ç½‘æ ¼çº¿
+%axis square        %  ±£³Ö»æÍ¼¿òÎªÕı·½ĞÎ
+shading flat       %  È¥³ıÍ¼ĞÎÍø¸ñÏß
 cid = colorbar;
 caxis([0, 70])
 colormap(collev);
@@ -66,10 +63,9 @@ colormap(collev);
 %% ppi to rhi
 azimu = 314;
 [prod, height, lon, lat] = ppi_to_rhi(radar, azimu);
-pcolor(lon, height, prod)
 ylim([0, 20])
-axis square        %  ä¿æŒç»˜å›¾æ¡†ä¸ºæ­£æ–¹å½¢
-shading flat       %  å»é™¤å›¾å½¢ç½‘æ ¼çº¿
+%axis square        %  ±£³Ö»æÍ¼¿òÎªÕı·½ĞÎ
+shading flat       %  È¥³ıÍ¼ĞÎÍø¸ñÏß
 cid = colorbar;
 caxis([0, 70])
 colormap(collev);
