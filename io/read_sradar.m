@@ -129,15 +129,15 @@ function radar = get_prod(radar, data, i, types, eleidse, eleva, longitude, lati
 
 if types == 1
     start = 129;
-    ray_nums = 460;
-    distance = unique(data(:, 51) + data(:, 52)*256)/1000;
+    ray_nums = unique(data(eleidse, 55) + data(eleidse, 56)*256);
+    distance = unique(data(eleidse, 51) + data(eleidse, 52)*256)/1000;
     ray_nums_all = unique(data(eleidse, 55) + data(eleidse, 56)*256);
     [prod, lat, lon, height, llunits, azimuths, elevations] = get_data(data, eleidse, ray_nums, distance, start, longitude, latitude);
     prod = (prod - 2)/2 - 32;
 elseif types == 2
     start = 129;    % start byte 
-    ray_nums = 920; % max length
-    distance = unique(data(:, 53) + data(:, 54)*256)/1000;
+    ray_nums = unique(data(eleidse, 55) + data(eleidse, 56)*256); % max length
+    distance = unique(data(eleidse, 53) + data(eleidse, 54)*256)/1000;
     ray_nums_all = unique(data(eleidse, 57) + data(eleidse, 58)*256);
     res = unique(data(:, 71) + data(:, 72)*256);
     if res == 2
@@ -151,8 +151,8 @@ elseif types == 2
     end
 elseif types == 3
     start = 1049;
-    ray_nums = 920;
-    distance = unique(data(:, 53) + data(:, 54)*256)/1000;
+    ray_nums = unique(data(eleidse, 55) + data(eleidse, 56)*256);
+    distance = unique(data(eleidse, 53) + data(eleidse, 54)*256)/1000;
     ray_nums_all = unique(data(eleidse, 57) + data(eleidse, 58)*256);
     [prod, lat, lon, height, llunits, azimuths, elevations] = get_data(data, eleidse, ray_nums, distance, start, longitude, latitude);
     prod = (prod -2)/2 - 63.5;
