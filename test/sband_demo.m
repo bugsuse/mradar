@@ -6,13 +6,13 @@ collev = [ 255,255,255; 0,236,236; 0,160,246; 0,0,246; 0,255,0; ...
            0,200,0; 0,144,0; 255,255,0; 231,192,0; 255,0,0; ...
            214,0,0; 192,0,0; 255,0,255; 153,85,201 ]/255.;
        
-filename = 'data/SA_CAP.bin';
+filename = 'data/Z_RADR_I_Z9515_20160623063100_O_DOR_SA_CAP.bin';
 
 types = 1; % 当 eleva = 0.5，且 dupe = false 时，只有反射率数据
 lon = 120.2011;
 lat = 33.4311; % 雷达经纬度坐标
 
-radar = read_sradar(filename, types, lon, lat, 0);
+radar = read_sradar(filename, types, lon, lat, 24.3);
 
 lat = radar.coordinate.elevation(1).latitude.data;
 lon = radar.coordinate.elevation(1).longitude.data;
@@ -36,6 +36,9 @@ ylim([33.4, 34.6])
 colormap(collev);
 
 se = ginput(2);
+
+%se = [119.7520   33.6601;
+%      120.0182   33.8739];
 
 stapos = se(1, :);
 endpos = se(2, :);
