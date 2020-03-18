@@ -130,18 +130,19 @@ for i = 1:cutnum
     radar.products.elevation(i).data = prod;
     radar.products.elevation(i).elevation = data.Cut(i).Elevation(1);
     
-    [lat, lon, z] = sph2cart(deg2rad(azimuth), deg2rad(elevation), rr*75/1000);
+    %[lat, lon, z] = sph2cart(deg2rad(azimuth), deg2rad(elevation), rr*75/1000);
+    [lon, lat, z] = antenna_to_cartesian(rr*75, azimuth, elevation, data.info.height); 
     
-    lat = double(km2deg(lat)) + data.info.latitude;
-    lon = double(km2deg(lon)) + data.info.longitude;
-    height = double(z) + data.info.height/1000;    
+    lat = double(km2deg(lat/1000)) + data.info.latitude;
+    lon = double(km2deg(lon/1000)) + data.info.longitude;
+    height = double(z) + data.info.height;    
     
     radar.coordinate.elevation(i).longitude.data = lon;
     radar.coordinate.elevation(i).longitude.units = 'degree';    
     radar.coordinate.elevation(i).latitude.data = lat;
     radar.coordinate.elevation(i).latitude.units = 'degree';
     radar.coordinate.elevation(i).height.data = height;
-    radar.coordinate.elevation(i).height.units = 'km';  
+    radar.coordinate.elevation(i).height.units = 'm';  
     radar.coordinate.elevation(i).azimuth.data = azimuth;
     radar.coordinate.elevation(i).azimuth.units = 'degree';
     radar.coordinate.elevation(i).azimuth.description = 'azimuth for per elevation radar sweep';    

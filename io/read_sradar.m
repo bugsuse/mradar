@@ -94,7 +94,7 @@ for i = 1:phinum
     else
         eleidse = eleidx(1):eleidx(end);
     end   
-    radar = get_prod(radar, data, i, types, eleidse, eleva, longitude, latitude);   
+    radar = get_prod(radar, data, i, types, eleidse, eleva, longitude, latitude, height);   
 end
 radar.info.longitude.data = longitude;
 radar.info.longitude.units = 'degree';
@@ -105,46 +105,48 @@ radar.info.height.units = 'm';
 radar.info.elenum = phinum;
 end
 
-function [prod, lat, lon, height, llunits, azimu, eleva] = get_data(data, eleidse, dnum, distance, start, longitude, latitude)   
+function [prod, y, x, z, llunits, azimu, eleva] = get_data(data, eleidse, dnum, distance, start, longitude, latitude, height)   
     amu = (data(eleidse, 37) + data(eleidse, 38)*256)/8*180/4096;
     amusize = length(amu);
     azimu = repmat(amu, 1, dnum);
     elevation = (data(eleidse, 43) + data(eleidse, 44)*256)/8*180/4096;
     eleva = repmat(elevation, 1, dnum);        
-    r = ((1:dnum) - 0.5)*distance; 
+    r = (1:dnum)*distance; 
     r = repmat(r, amusize, 1);
 
-    [lat, lon, height] = sph2cart(deg2rad(azimu), deg2rad(eleva), r);
-    llunits = 'km';
+    %[lat, lon, height] = sph2cart(deg2rad(azimu), deg2rad(eleva), r);
+    [x, y, z] = antenna_to_cartesian(r, azimu, eleva, height);
+    
+    llunits = 'm';
     prod = data(eleidse, start:dnum + start - 1);
 
     if ~isempty(longitude) || ~isempty(latitude)
-       lon =  km2deg(lon) + longitude;
-       lat = km2deg(lat) + latitude;
+       x =  km2deg(x/1000) + longitude;
+       y = km2deg(y/1000) + latitude;
        llunits = 'degree';
     end
 end
 
-function radar = get_prod(radar, data, i, types, eleidse, eleva, longitude, latitude)
+function radar = get_prod(radar, data, i, types, eleidse, eleva, longitude, latitude, height)
 
 if types == 1
     start = 129;
     ray_nums = unique(data(eleidse, 55) + data(eleidse, 56)*256);
-    distance = unique(data(eleidse, 51) + data(eleidse, 52)*256)/1000;
+    distance = unique(data(eleidse, 51) + data(eleidse, 52)*256);
     ray_nums_all = unique(data(eleidse, 55) + data(eleidse, 56)*256);
-    [prod, lat, lon, height, llunits, azimuths, elevations] = get_data(data, eleidse, ray_nums, distance, start, longitude, latitude);
+    [prod, lat, lon, height, llunits, azimuths, elevations] = get_data(data, eleidse, ray_nums, distance, start, longitude, latitude, height);
     prod = (prod - 2)/2 - 32;
 elseif types == 2
     start = 129;    % start byte 
     ray_nums = unique(data(eleidse, 55) + data(eleidse, 56)*256); % max length
-    distance = unique(data(eleidse, 53) + data(eleidse, 54)*256)/1000;
+    distance = unique(data(eleidse, 53) + data(eleidse, 54)*256);
     ray_nums_all = unique(data(eleidse, 57) + data(eleidse, 58)*256);
     res = unique(data(:, 71) + data(:, 72)*256);
     if res == 2
-        [prod, lat, lon, height, llunits, azimuths, elevations] = get_data(data, eleidse, ray_nums, distance, start, longitude, latitude);
+        [prod, lat, lon, height, llunits, azimuths, elevations] = get_data(data, eleidse, ray_nums, distance, start, longitude, latitude, height);
         prod = (prod - 2)/2 - 63.5;
     elseif res == 4
-        [prod, lat, lon, height, llunits, azimuths, elevations] = get_data(data, eleidse, ray_nums, distance, start, longitude, latitude);
+        [prod, lat, lon, height, llunits, azimuths, elevations] = get_data(data, eleidse, ray_nums, distance, start, longitude, latitude, height);
         prod =  (prod - 2) - 127;
     else
         error('Error! velocity mode is reading %d, but should reading 2 or 4.', res);
@@ -152,9 +154,9 @@ elseif types == 2
 elseif types == 3
     start = 1049;
     ray_nums = unique(data(eleidse, 55) + data(eleidse, 56)*256);
-    distance = unique(data(eleidse, 53) + data(eleidse, 54)*256)/1000;
+    distance = unique(data(eleidse, 53) + data(eleidse, 54)*256);
     ray_nums_all = unique(data(eleidse, 57) + data(eleidse, 58)*256);
-    [prod, lat, lon, height, llunits, azimuths, elevations] = get_data(data, eleidse, ray_nums, distance, start, longitude, latitude);
+    [prod, lat, lon, height, llunits, azimuths, elevations] = get_data(data, eleidse, ray_nums, distance, start, longitude, latitude, height);
     prod = (prod -2)/2 - 63.5;
 end
 
@@ -169,7 +171,7 @@ else
     radar.coordinate.elevation(i).latitude.data = lat;
     radar.coordinate.elevation(i).latitude.units = llunits;
     radar.coordinate.elevation(i).height.data = height;
-    radar.coordinate.elevation(i).height.units = 'km';
+    radar.coordinate.elevation(i).height.units = 'm';
     radar.coordinate.elevation(i).elevation.data = elevations;
     radar.coordinate.elevation(i).elevation.units = 'degree';
     radar.coordinate.elevation(i).elevation.description = 'elevation for radar sweep';
